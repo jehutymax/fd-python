@@ -31,7 +31,7 @@ def u_exact(t, I, w):
     return I * np.cos(w * t)
 
 
-def visualize(u, t, I, w):
+def visualize(u, t, I, w, show=False, save=False):
     plt.plot(t, u, 'r--o')
     t_fine = np.linspace(0, t[-1], 1001)
     u_correct = u_exact(t_fine, I, w)
@@ -44,18 +44,10 @@ def visualize(u, t, I, w):
     u_min = 1.2 * u.min()
     u_max = -u_min
     plt.axis([t[0], t[-1], u_min, u_max])
-    plt.savefig("plot1.png")
-    # plt.show()
-
-
-def test_first_three_steps():
-    from math import pi
-    I = 1; w = 2*pi; dt = 0.1; T = 1;
-    expected = np.array([1.00, 0.802607911978213, 0.288358920740053])
-    u, t = solver(I, w, dt, T)
-    diff = np.abs(expected - u[:3]).max()
-    tol = 1e-14
-    assert diff < tol
+    if save:
+        plt.savefig("plot1.png")
+    if show:
+        plt.show()
 
 
 I = 1
